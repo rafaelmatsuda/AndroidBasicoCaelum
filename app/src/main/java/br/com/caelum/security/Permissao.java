@@ -15,7 +15,9 @@ public class Permissao {
     public static void fazPermissao(Activity activity) {
         String[] permissoes = {Manifest.permission.CALL_PHONE,
                 Manifest.permission.SEND_SMS,
-                Manifest.permission.INTERNET};
+                Manifest.permission.INTERNET,
+                Manifest.permission.READ_SMS,
+                Manifest.permission.RECEIVE_SMS};
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {

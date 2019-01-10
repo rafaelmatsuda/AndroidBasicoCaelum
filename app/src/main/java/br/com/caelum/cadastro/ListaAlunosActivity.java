@@ -24,6 +24,7 @@ import android.widget.Toast;
 import java.net.URI;
 import java.util.List;
 
+import br.com.caelum.adapter.ListaAlunosAdapter;
 import br.com.caelum.dao.AlunoDAO;
 import br.com.caelum.model.Aluno;
 import br.com.caelum.security.Permissao;
@@ -100,7 +101,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
         List<Aluno> alunos = dao.getLista();
         dao.close();
 
-        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(this, android.R.layout.simple_list_item_1, alunos);
+        ListaAlunosAdapter adapter = new ListaAlunosAdapter(this, alunos);
 
         this.listaAlunos.setAdapter(adapter);
     }

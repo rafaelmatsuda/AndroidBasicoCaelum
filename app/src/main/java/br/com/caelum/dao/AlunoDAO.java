@@ -98,4 +98,20 @@ public class AlunoDAO extends SQLiteOpenHelper
 
         getWritableDatabase().update(TABELA, values ,"id = ?", args);
     }
+
+    //region Verifica se existe aluno com o telefone passado
+    public boolean existeAluno (String telefone)
+    {
+        String[] args = {telefone};
+
+        Cursor c = getReadableDatabase().rawQuery("SELECT * FROM "+TABELA+" WHERE telefone = ?", args);
+
+        if (c.getCount() > 0){
+            return true;
+        }
+
+        return false;
+    }
+        //endregion
 }
+

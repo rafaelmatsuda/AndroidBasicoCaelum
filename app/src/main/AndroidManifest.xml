@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.caelum.cadastro">
-
+    <!--android:name="br.com.caelum.application.MyApp"-->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -27,9 +27,19 @@
                 android:resource="@xml/provider">
             </meta-data>
         </provider>
+        <receiver
+            android:enabled="true"
+            android:name="br.com.caelum.broadcast.EsperaSms">
+            <intent-filter>
+                <action
+                    android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
         </application>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.SEND_SMS"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
 </manifest>
