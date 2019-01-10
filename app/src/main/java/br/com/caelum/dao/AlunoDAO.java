@@ -94,6 +94,7 @@ public class AlunoDAO extends SQLiteOpenHelper
         values.put("endereco", aluno.getEndereco());
         values.put("site", aluno.getSite());
         values.put("nota", aluno.getNota());
+        values.put("caminhoFoto", aluno.getCaminhoFoto());
 
         getWritableDatabase().update(TABELA, values ,"id = ?", args);
     }
