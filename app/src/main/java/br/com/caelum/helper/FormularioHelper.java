@@ -69,11 +69,11 @@ public class FormularioHelper {
         campoEnd.setText(alunoSelecionado.getEndereco());
         campoSite.setText(alunoSelecionado.getSite());
         campoNota.setRating(alunoSelecionado.getNota().floatValue());
-        aluno.setId(alunoSelecionado.getId());
+        aluno = alunoSelecionado;
 
-        if(aluno.getCaminhoFoto() != null)
+        if(alunoSelecionado.getCaminhoFoto() != null)
         {
-            carregaImagem(aluno.getCaminhoFoto());
+            carregaImagem(alunoSelecionado.getCaminhoFoto());
         }
     }
 
