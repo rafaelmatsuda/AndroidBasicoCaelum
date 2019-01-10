@@ -13,7 +13,7 @@ import br.com.caelum.model.Aluno;
 
 public class AlunoDAO extends SQLiteOpenHelper
 {
-    private static final int VERSAO = 1;
+    private static final int VERSAO = 2;
     private static final String TABELA = "Alunos";
     private static final String DATABASE = "CadastroCaelum";
 
@@ -24,15 +24,15 @@ public class AlunoDAO extends SQLiteOpenHelper
 
     public void onCreate(SQLiteDatabase database)
     {
-        String ddl = "CREATE TABLE "+TABELA+" (id INTEGER PRIMARY KEY, nome TEXT NOT NULL, telefone TEXT, endereco TEXT, site TEXT, nota REAL);";
+        String ddl = "CREATE TABLE "+TABELA+" (id INTEGER PRIMARY KEY, nome TEXT NOT NULL, telefone TEXT, endereco TEXT, site TEXT, nota REAL, caminhoFoto Text);";
         database.execSQL(ddl);
     }
 
     public void onUpgrade(SQLiteDatabase database, int versaoAntiga, int versaoNova)
     {
-        String sql = "DROP TABLE IF EXISTS "+TABELA;
+        String sql = "ALTER TABLE "+TABELA+"  ADD COLUMN caminhoFoto Text";
         database.execSQL(sql);
-        onCreate(database);
+
     }
 
     public void insere(Aluno aluno)
@@ -44,6 +44,7 @@ public class AlunoDAO extends SQLiteOpenHelper
         values.put("endereco", aluno.getEndereco());
         values.put("site", aluno.getSite());
         values.put("nota", aluno.getNota());
+        values.put("caminhoFoto", aluno.getCaminhoFoto());
 
         getWritableDatabase().insert(TABELA, null, values);
     }
@@ -66,6 +67,7 @@ public class AlunoDAO extends SQLiteOpenHelper
             aluno.setEndereco(c.getString(c.getColumnIndex("endereco")));
             aluno.setSite(c.getString(c.getColumnIndex("site")));
             aluno.setNota(c.getDouble(c.getColumnIndex("nota")));
+            aluno.setCaminhoFoto(c.getString(c.getColumnIndex("caminhoFoto")));
 
             alunos.add(aluno);
         }
