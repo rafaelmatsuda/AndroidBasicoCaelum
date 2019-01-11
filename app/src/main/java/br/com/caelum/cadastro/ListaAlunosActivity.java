@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,13 +22,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 import java.net.URI;
 import java.util.List;
 
 import br.com.caelum.adapter.ListaAlunosAdapter;
+import br.com.caelum.converter.AlunoConverter;
 import br.com.caelum.dao.AlunoDAO;
 import br.com.caelum.model.Aluno;
 import br.com.caelum.security.Permissao;
+import br.com.caelum.support.Webclient;
+import br.com.caelum.task.EnviaAlunosTask;
 
 public class ListaAlunosActivity extends AppCompatActivity {
 
@@ -190,10 +196,40 @@ public class ListaAlunosActivity extends AppCompatActivity {
                 return false;
             }
         });
-
         //endregion
-
-
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu_lista_alunos,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+
+        switch (item.getItemId())
+        {
+            case R.id.menu_enviar_notas:
+                AlunoDAO dao = new AlunoDAO(this);
+                List<Aluno> alunos = dao.getLista();
+                dao.close();
+                String json = null;
+                try {
+                    json = new AlunoConverter().toJSON(alunos);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Log.i("Request:", json);
+
+                EnviaAlunosTask task = new EnviaAlunosTask(this, alunos);
+                task.execute();
+
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
