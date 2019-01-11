@@ -229,6 +229,11 @@ public class ListaAlunosActivity extends AppCompatActivity {
                 task.execute();
 
                 return true;
+
+            case R.id.menu_receber_provas:
+                Intent provas = new Intent(this, ProvaActivity.class);
+                startActivity(provas);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
